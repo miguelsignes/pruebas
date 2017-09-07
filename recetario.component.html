@@ -1,0 +1,51 @@
+<app-search></app-search>
+<div class="animated fadeIn">
+<app-categorias></app-categorias>
+<div class="ultimas onMenu">
+  <div *ngIf="categorias">
+      <div *ngIf="cat1">
+          <h4>{{cat1[0].categoria}}</h4>
+      <div class="row">
+      <div class="col-lg-3 col-xl-3" *ngFor="let item of cat1; let i = index">
+          <!-- <div class="col-lg-6 col-xl-6"> -->
+         <md-card class="simple">
+        
+          <img md-card-image src='assets/img/pollo.jpg' class="mdImage" />
+                 <h5>{{item.title}}</h5>
+        
+            <md-card-content class="textcard">Bizcocho de frambuesa con una cubierta de nata, preparación sencilla.</md-card-content>
+        
+          </md-card>
+        
+          <!-- </div> -->
+        
+        </div>
+      </div>
+    </div>
+
+      <div *ngIf="cat2">
+        <h4>{{cat2[0].categoria}}</h4>
+      <div class="row">
+        <div class="col-lg-3 col-xl-3" *ngFor="let item of cat2; let i = index">
+            <!-- <div class="col-lg-6 col-xl-6"> -->
+           <md-card class="simple">
+          
+            <img md-card-image src='assets/img/pollo.jpg' class="mdImage" />
+                   <h5>{{item.title}}</h5>
+          
+              <md-card-content class="textcard">Bizcocho de frambuesa con una cubierta de nata, preparación sencilla.</md-card-content>
+          
+            </md-card>
+          
+            <!-- </div> -->
+          
+          </div>
+        </div>
+      </div>
+
+ 
+  </div>
+</div>
+
+<app-footer></app-footer>
+</div>
