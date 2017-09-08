@@ -25,13 +25,7 @@ export class RecetarioComponent implements OnInit {
       {
 
         this.verCategorias();
-       
-
-
-
-
-
- }
+   }
 
  multiplesCalls() {
     for ( let i = 0; i < this.categorias.length; i++)
@@ -44,26 +38,17 @@ export class RecetarioComponent implements OnInit {
        let characterHomeworld = this.http.get('assets/data/2.json').map(res => res.json()); 
        Observable.forkJoin([character, characterHomeworld])
        .subscribe( results => {
-         console.log(results);
-         this.ls.push(results);
-         this.cat1 = results[0];
-         this.cat2 = results[1];
+      console.log(results);
+      this.ls.push(results);
+      this.cat1 = results[0];
+      this.cat2 = results[1];
 
-         console.log("ls " + this.ls);
-         localStorage.setItem('cc',JSON.stringify(this.ls));
-
-      //   localStorage.setItem('cc',this.cat1);
-       //  localStorage.setItem('cc', this.cat2);
-
-        
+      console.log("ls " + this.ls);
+      localStorage.setItem('cc',JSON.stringify(this.ls));
+      
        })
-
-
-   
-
-
-
  }
+  
  verCategorias() {
 
   this.http.get('assets/data/categorias.json')
