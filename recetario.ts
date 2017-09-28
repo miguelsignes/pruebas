@@ -68,3 +68,101 @@ export class RecetarioComponent implements OnInit {
   }
 
 }
+
+
+
+  rcArray:any;
+  recetas:any;
+  recetas_cargadas:any[]= [];
+  favoritos_cargados:any[] = [];
+  profile_recetas:any;
+
+  constructor( private http:Http) {
+    this.getHistorial();
+
+    this.recetas = new Map();
+
+
+   }
+  getHistorial() {
+
+      this.http.get('assets/data/historial.json')
+      .map( response => response.json())
+      .subscribe(
+        data => {
+        
+  
+        this.recetas_cargadas = data;
+        
+        for (var i = 0; i < this.recetas_cargadas.length; i++)
+        {
+          this.recetas.set(this.recetas_cargadas[i].id, {slug:this.recetas_cargadas[i].slug, historial:true})
+        }
+        console.log("recetas historial " + this.recetas )
+        this.getFavoritos();        //  this.recetas.set()
+        },
+        error => {
+
+        });
+ }
+
+ getFavoritos() {
+  this.http.get('assets/data/favoritos.json')
+  .map( response => response.json())
+  .subscribe(
+    data => {
+    
+  
+    this.favoritos_cargados = data;
+    
+    for (var i = 0; i < this.favoritos_cargados.length; i++)
+    {
+      if ( this.recetas.has(this.favoritos_cargados[i].id) )
+      {
+        console.log("encontrado " + this.favoritos_cargados[i].id);
+        this.recetas.set(this.favoritos_cargados[i].id, {slug:this.recetas_cargadas[i].slug, historial:true, favoritos:true})
+      }
+    }
+   
+    console.log("recetas " + this.profile_recetas);
+    console.log(this.recetas);       
+   
+    this.rcArray = this.recetas;
+   
+    const arr = Array.from(this.recetas, ([key, val]) => {
+      return {type: key, name: val};
+    });
+    console.log(arr);
+    this.rcArray = arr;
+
+    },
+    error => {
+
+    });
+ }
+
+ containsKey(key: string) {
+  if (typeof this[key] === "undefined") {
+      return false;
+  }
+
+  return true;
+}
+
+  ngOnInit() {
+  }
+
+
+
+   strMapToObj(strMap) {
+    let obj = Object.create(null);
+    for (let [k,v] of strMap) {
+        // We don’t escape the key '__proto__'
+        // which can cause problems on older engines
+        obj[k] = v;
+    }
+    console.log(obj);
+    return obj;
+    
+  }
+}
